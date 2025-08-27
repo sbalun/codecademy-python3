@@ -109,9 +109,79 @@ green&white;,;09/15/17,   Gail Phelps   ;,;$30.52
 # Start coding below!º
 
 daily_sales_replaced = daily_sales.replace(';,;', ':')
-
 print(daily_sales_replaced)
 
 daily_transactions = daily_sales_replaced.split(',')
-
 print(daily_transactions)
+
+daily_transactions_split = []
+
+for transaction in daily_transactions:
+    split_transaction = transaction.split(":")
+    daily_transactions_split.append(split_transaction)
+
+print("\nThe daily_transactions_split list: ", daily_transactions_split)
+
+transactions_clean = [
+    [item.strip() for item in transaction]
+    for transaction in daily_transactions_split
+]
+
+print("\nThe transactions_clean list: ")
+for row in transactions_clean[:5]:
+    print(row)
+
+customers = []
+sales = []
+thread_sold = []
+
+for transaction in transactions_clean:
+    name = transaction[0]
+    amount = transaction[1]
+    threads = transaction[2]
+
+    customers.append(name)
+    sales.append(amount)
+    thread_sold.append(threads)
+
+print("Customers:", customers)
+print("Sales:", sales)
+print("Threads Sold:", thread_sold)
+
+total_sales = 0
+
+for sale in sales:
+    clean_sale = sale.replace('$', '').strip()
+    total_sales += float(clean_sale)
+
+print(f"\nTotal Sales: ${total_sales:.2f}")
+
+thread_sold_split = []
+
+for item in thread_sold:
+    if '&' in item:
+        for color in item.split('&'):
+            color = color.strip()
+            if color:
+                thread_sold_split.append(color)
+    else:
+        color = item.strip()
+        if color:
+            thread_sold_split.append(color)
+
+print("Thread Sold Split:", thread_sold_split)
+
+def color_count(color):
+    count = 0
+    for c in thread_sold_split:
+        if c == color:
+            count += 1
+    return count
+
+
+print(f"\nThe number of white threads sold is: {color_count('white')}")
+
+colors = ['red', 'yellow', 'green', 'white', 'black', 'blue', 'purple']
+
+for color in colors:
+    print("There were {} threads of {} sold today.".format(color_count(color), color))
