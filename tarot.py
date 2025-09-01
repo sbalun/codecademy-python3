@@ -23,6 +23,6 @@ tarot = {   1:	"The Magician",
             21:	"The World",
             22: "The Fool"}
 spread = {"past": tarot.pop(13), "present": tarot.pop(22), "future": tarot.pop(10)}
-º
+
 for key, value in spread.items():
     print("Your " + str(key) + " is the " + str(value) + " card.")
